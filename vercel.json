@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "evaluaciones_nombre/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "evaluaciones_nombre/wsgi.py"
+    }
+  ],
+  "buildCommand": "python manage.py collectstatic --noinput"
+}
