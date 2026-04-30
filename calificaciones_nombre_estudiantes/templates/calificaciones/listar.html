@@ -12,6 +12,10 @@
 </head>
 <body>
     <h1>Listado de Calificaciones</h1>
+    <p>
+        Sesion iniciada como <strong>{{ request.user.username }}</strong> |
+        <a href="{% url 'logout_usuario' %}">Cerrar sesion</a>
+    </p>
     <a href="{% url 'crear' %}">Registrar Nuevo Estudiante</a>
     <hr>
     <table>
