@@ -50,3 +50,5 @@ uvicorn==0.42.0
 watchdog==6.0.0
 Django==6.0.4
 whitenoise==6.11.0
+dj-database-url==3.0.1
+psycopg[binary]==3.2.10
