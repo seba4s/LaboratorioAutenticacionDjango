@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -103,15 +102,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': '/tmp/db.sqlite3' if IS_VERCEL else BASE_DIR / 'db.sqlite3',
         }
     }
-
-if IS_VERCEL and not database_url:
-    raise ImproperlyConfigured(
-        'En Vercel debes configurar DATABASE_URL (PostgreSQL). '
-        'SQLite en entorno serverless provoca errores 500 en /admin.'
-    )
 
 
 # Password validation
