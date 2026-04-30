@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,18 +89,28 @@ WSGI_APPLICATION = 'evaluaciones_nombre.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+database_url = os.getenv('DATABASE_URL')
 
-if os.getenv('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.parse(
-        os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True,
+if database_url:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            database_url,
+            conn_max_age=600,
+            ssl_require=IS_VERCEL,
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+if IS_VERCEL and not database_url:
+    raise ImproperlyConfigured(
+        'En Vercel debes configurar DATABASE_URL (PostgreSQL). '
+        'SQLite en entorno serverless provoca errores 500 en /admin.'
     )
 
 
@@ -144,9 +155,11 @@ STORAGES = {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
     },
 }
+
+WHITENOISE_MANIFEST_STRICT = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
