@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Calificaciones</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .promedio-box { margin-top: 20px; padding: 15px; background: #e7f3ff; border: 1px solid #b6d4fe; }
+    </style>
+</head>
+<body>
+    <h1>Listado de Calificaciones</h1>
+    <a href="{% url 'crear' %}">Registrar Nuevo Estudiante</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Identificación</th>
+                <th>Asignatura</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Promedio Individual</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in calificaciones %}
+            <tr>
+                <td>{{ c.nombre_estudiante }}</td>
+                <td>{{ c.identificacion }}</td>
+                <td>{{ c.asignatura }}</td>
+                <td>{{ c.nota1 }}</td>
+                <td>{{ c.nota2 }}</td>
+                <td>{{ c.nota3 }}</td>
+                <td><strong>{{ c.promedio }}</strong></td>
+                <td>
+                    <a href="{% url 'editar' c.pk %}">Editar</a> | 
+                    <a href="{% url 'eliminar' c.pk %}">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8">No hay registros disponibles.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="promedio-box">
+        <h3>Promedio General del Grupo: {{ promedio_general|default:"0.00" }}</h3>
+    </div>
+</body>
+</html>

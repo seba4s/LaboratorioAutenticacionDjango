@@ -13,4 +13,4 @@ urlpatterns = [
     
     # Ruta para eliminar
     path('eliminar/<int:pk>/', views.eliminar_calificacion, name='eliminar'),
-]
+]   
