@@ -4,81 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4edf8);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 680px;
-            background: #ffffff;
-            border: 1px solid #d6dfeb;
-            border-radius: 14px;
-            padding: 28px;
-            box-shadow: 0 16px 35px rgba(33, 56, 87, 0.12);
-        }
-
-        h1 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            color: #1a2f4d;
-        }
-
-        p {
-            margin-top: 0;
-            margin-bottom: 20px;
-            color: #415a77;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-        }
-
-        .link-card {
-            text-decoration: none;
-            border: 1px solid #c8d8eb;
-            border-radius: 10px;
-            padding: 14px;
-            color: #0f2a44;
-            background: #f7fbff;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .link-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(23, 58, 94, 0.14);
-        }
-
-        .title {
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .desc {
-            font-size: 0.94rem;
-            color: #47678c;
-        }
-
-        .session {
-            margin-top: 20px;
-            font-size: 0.92rem;
-            color: #34506f;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'calificaciones/styles.css' %}">
 </head>
 <body>
-    <main class="container">
+    <main class="wrapper">
+    <section class="card narrow">
         <h1>Portal de Evaluaciones</h1>
         <p>Selecciona una opcion para navegar sin escribir URLs manualmente.</p>
 
@@ -111,6 +42,7 @@
                 No hay sesion iniciada.
             {% endif %}
         </div>
+    </section>
     </main>
 </body>
 </html>

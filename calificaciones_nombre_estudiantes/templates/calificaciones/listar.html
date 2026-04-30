@@ -2,22 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Calificaciones</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .promedio-box { margin-top: 20px; padding: 15px; background: #e7f3ff; border: 1px solid #b6d4fe; }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'calificaciones/styles.css' %}">
 </head>
 <body>
-    <h1>Listado de Calificaciones</h1>
-    <p>
-        Sesion iniciada como <strong>{{ request.user.username }}</strong> |
-        <a href="{% url 'logout_usuario' %}">Cerrar sesion</a>
-    </p>
-    <a href="{% url 'crear' %}">Registrar Nuevo Estudiante</a>
+    <main class="wrapper">
+    <section class="card">
+    <div class="topbar">
+        <div>
+            <h1>Listado de Calificaciones</h1>
+            <p>Sesion iniciada como <strong>{{ request.user.username }}</strong></p>
+        </div>
+        <div class="actions">
+            <a class="btn btn-outline" href="{% url 'logout_usuario' %}">Cerrar sesion</a>
+            <a class="btn btn-success" href="{% url 'crear' %}">Registrar nuevo estudiante</a>
+        </div>
+    </div>
     <hr>
+    <div class="table-wrap">
     <table>
         <thead>
             <tr>
@@ -42,8 +46,10 @@
                 <td>{{ c.nota3 }}</td>
                 <td><strong>{{ c.promedio }}</strong></td>
                 <td>
-                    <a href="{% url 'editar' c.pk %}">Editar</a> | 
-                    <a href="{% url 'eliminar' c.pk %}">Eliminar</a>
+                    <div class="actions">
+                        <a class="btn btn-primary" href="{% url 'editar' c.pk %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url 'eliminar' c.pk %}">Eliminar</a>
+                    </div>
                 </td>
             </tr>
             {% empty %}
@@ -51,9 +57,12 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <div class="promedio-box">
         <h3>Promedio General del Grupo: {{ promedio_general|default:"0.00" }}</h3>
     </div>
+    </section>
+    </main>
 </body>
 </html>

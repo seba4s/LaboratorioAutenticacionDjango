@@ -2,44 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Eliminación</title>
-    <style>
-        body { font-family: sans-serif; margin: 40px; line-height: 1.6; }
-        .warning-card { 
-            border: 2px solid #dc3545; 
-            padding: 25px; 
-            border-radius: 8px; 
-            max-width: 550px; 
-            background-color: #fff5f5; 
-        }
-        .student-info {
-            background: #fff;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin: 15px 0;
-        }
-        .btn-delete { 
-            background-color: #dc3545; 
-            color: white; 
-            padding: 10px 25px; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-weight: bold;
-        }
-        .btn-cancel { 
-            color: #495057; 
-            text-decoration: none; 
-            margin-left: 15px; 
-            font-size: 0.9em;
-        }
-        .btn-delete:hover { background-color: #c82333; }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'calificaciones/styles.css' %}">
 </head>
 <body>
-    <div class="warning-card">
-        <h1>⚠️ Confirmar Eliminación</h1>
+    <main class="wrapper">
+    <section class="card narrow warning-card">
+        <h1>Confirmar Eliminación</h1>
         <p>Estás a punto de eliminar permanentemente el registro del siguiente estudiante:</p>
         
         <div class="student-info">
@@ -54,9 +25,12 @@
         
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn-delete">Sí, eliminar registro</button>
-            <a href="{% url 'listar' %}" class="btn-cancel">No, cancelar y volver</a>
+            <div class="actions">
+                <button type="submit" class="btn btn-danger">Sí, eliminar registro</button>
+                <a href="{% url 'listar' %}" class="btn btn-outline">No, cancelar y volver</a>
+            </div>
         </form>
-    </div>
+    </section>
+    </main>
 </body>
 </html>
