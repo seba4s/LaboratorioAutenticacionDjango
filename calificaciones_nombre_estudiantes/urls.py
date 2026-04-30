@@ -2,6 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # Autenticación de usuarios normales
+    path('login/', views.login_usuario, name='login_usuario'),
+    path('registro/', views.registro_usuario, name='registro_usuario'),
+    path('logout/', views.logout_usuario, name='logout_usuario'),
+
     # Ruta principal: Listado de calificaciones
     path('', views.listar_calificaciones, name='listar'),
     
